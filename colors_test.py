@@ -74,6 +74,60 @@ def draw_random_cluster_3d(n, points_per_cluster=200):
     plt.tight_layout()
     plt.show()
 
+def draw_random_barplot(n):
+    """
+    Draw 3 repeated bar groups, each containing 'n' bars with distinct colors.
+    Each group is identical in structure but values vary.
+    """
+    import matplotlib.pyplot as plt
+
+    colors = generate_colors(n)
+    bar_width = 0.8  # Wider since no overlap
+    group_count = 3
+    gap = 1.0        # Gap between groups
+
+    # X positions for each group (shifted n each time)
+    x = np.arange(n)
+    fig, ax = plt.subplots(figsize=(max(8, n * 1.2), 5))
+
+    for g in range(group_count):
+        shift = g * (n + gap)
+        values = np.random.uniform(0.4, 1.0, size=n)
+        errors = np.random.uniform(0.05, 0.1, size=n)
+
+        edgecolors = (np.array(colors) * 0.9).clip(0, 1)  # Make edge colors slightly darker
+        errorcolors = (np.array(colors) * 0.75).clip(0, 1)  # Make error colors even darker
+
+        for i in range(n):
+            ax.bar(
+                x[i] + shift,
+                values[i],
+                yerr=errors[i],
+                width=bar_width,
+                color=colors[i],
+                edgecolor=edgecolors[i],
+                linewidth=2.0,
+                capsize=4,
+                error_kw={
+                    'ecolor': errorcolors[i],
+                    'elinewidth': 2.0,
+                    'capthick': 1.2
+                }
+            )
+
+    # X-axis ticks for categories centered on each group
+    total_width = group_count * (n + gap)
+    ax.set_xticks([(n / 2 - 0.5) + i * (n + gap) for i in range(group_count)])
+    ax.set_xticklabels([f'Group {i+1}' for i in range(group_count)])
+
+    ax.set_ylabel("Value")
+    ax.set_title(f"{group_count} Repeated Bar Groups with {n} Classes")
+    # ax.legend()
+    plt.tight_layout()
+    plt.show()
+
+
+
 if __name__ == "__main__":
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 29
     mode = sys.argv[2] if len(sys.argv) > 2 else 'all'
@@ -86,15 +140,20 @@ if __name__ == "__main__":
         draw_random_cluster(n)
     elif mode == 'cluster3d':
         draw_random_cluster_3d(n)
+    elif mode == 'plot':
+        draw_random_barplot(n)
     elif mode == 'all':
-        print("[1/4] Drawing colored circles...")
+        print("[1/5] Drawing colored circles...")
         draw_colored_circles(n)
-        print("[2/4] Drawing colored stripe...")
+        print("[2/5] Drawing colored stripe...")
         draw_colored_stripe(n)
-        print("[3/4] Drawing random 2D cluster...")
+        print("[3/5] Drawing random 2D cluster...")
         draw_random_cluster(n)
-        print("[4/4] Drawing random 3D cluster...")
+        print("[4/5] Drawing random 3D cluster...")
         draw_random_cluster_3d(n)
+        print("[5/5] Drawing random bar plot...")
+        draw_random_barplot(n)
+
     else:
         print(f"Unknown mode: {mode}. Use one of: circle, stripe, cluster, cluster3d, all.")
 
@@ -109,3 +168,4 @@ if __name__ == "__main__":
 # python colors_test.py 30 stripe
 # python colors_test.py 30 cluster
 # python colors_test.py 30 cluster3d
+# python colors_test.py 5 plot

@@ -54,8 +54,42 @@ Print(type(color_list))
 ```
 The return value is a list of RGB tuples, each representing a color for a class. The RGB values are in the range of 0.0 to 1.0.
 
+<!-- import the figure here -->
+### Example of the output
+<table>
+  <tr>
+    <td><img src="./png/circle.png" width="200"/></td>
+    <td><img src="./png/stripe.png" width="200"/></td>
+    <td><img src="./png/cluster.png" width="200"/></td>
+    <td><img src="./png/cluster3d.png" width="200"/></td>
+    <td><img src="./png/plot.png" width="200"/></td>
+  </tr>
+  <tr>
+    <td align="center">Circle</td>
+    <td align="center">Stripe</td>
+    <td align="center">Cluster</td>
+    <td align="center">Cluster 3D</td>
+    <td align="center">Bar Plot</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td><img src="./png/matplotlib-ply.png" width="200"/></td>
+    <td><img src="./png/open3d-ply.png" width="200"/></td>
+    <td><img src="./png/open3d-ply3d-nolight.png" width="200"/></td>
+    <td><img src="./png/open3d-gaussian3d-nolight.png" width="200"/></td>
+  </tr>
+  <tr>
+    <td align="center">Matplotlib Point</td>
+    <td align="center">Open3D Point</td>
+    <td align="center">Open3D (No Light)</td>
+    <td align="center">Gaussian 3D (No Light)</td>
+  </tr>
+</table>
+
 ## 🧪 2. `test_color_generator.py`: Testing the Color Generator
-This script is designed to test the functionality of the `color_generator.py` module. It generates a set of palettes or point clouds with a specified number of classes and visualizes them using `matplotlib`. 
+This script is designed to test the functionality of the `color_generator.py` module. It generates a set of palettes, point clusters, plots, or others with a specified number of classes and visualizes them using `matplotlib`. 
 
 ### Testing with different counts of colors
 The first argument is the number of colors to generate:
@@ -74,7 +108,10 @@ python colors_test.py 30 circle
 python colors_test.py 30 stripe
 python colors_test.py 30 cluster
 python colors_test.py 30 cluster3d
+python colors_test.py 5 plot
 ```
+
+
 
 ## 🧪 3. `render_ply_matplotlib.py` and `render_ply_open3d.py`: Testing the Gaussian Rendering
 These scripts are designed to test the Gaussian rendering of point clouds using `matplotlib` and `open3d`. They load a `.ply` file, extract the point cloud data, and visualize it using the specified library.
