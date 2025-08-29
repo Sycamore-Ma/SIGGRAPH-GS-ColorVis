@@ -3,12 +3,33 @@ import numpy as np
 import sys
 import pprint
 import matplotlib.colors as mcolors
+import colorsys
 
 def normalize_rgb(rgb):
     max_val = max(rgb)
     if max_val == 0:
         return rgb
     return tuple(c / max_val for c in rgb)
+
+
+def adjust_saturation(colors, factor=1.2):
+    """
+    提高颜色列表的饱和度。
+
+    参数:
+        colors: List of (r, g, b) 元组，范围 0-1
+        factor: 饱和度增强系数，1.0 表示不变，>1 增强，<1 减弱
+
+    返回:
+        新的颜色列表（RGB）
+    """
+    adjusted = []
+    for r, g, b in colors:
+        h, s, v = colorsys.rgb_to_hsv(r, g, b)
+        s = min(1.0, s * factor)
+        r_adj, g_adj, b_adj = colorsys.hsv_to_rgb(h, s, v)
+        adjusted.append((r_adj, g_adj, b_adj))
+    return adjusted
 
 
 def generate_colors(n):

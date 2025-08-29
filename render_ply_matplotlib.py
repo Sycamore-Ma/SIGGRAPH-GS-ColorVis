@@ -5,13 +5,7 @@ from plyfile import PlyData
 from collections import defaultdict
 
 from color_generator import generate_colors  
-
-def read_ply_with_seg_ids(ply_path):
-    ply = PlyData.read(ply_path)
-    vertex = ply['vertex']
-    points = np.stack([vertex['x'], vertex['y'], vertex['z']], axis=-1)
-    seg_ids = vertex['seg_id_l4']
-    return points, seg_ids
+from utils.ply_parser import read_ply_with_seg_ids
 
 def plot_point_cloud_with_seg_ids(points, seg_ids, max_points_per_seg=500):
     unique_ids = sorted(set(seg_ids))

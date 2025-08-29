@@ -1,53 +1,8 @@
 import open3d as o3d
 import numpy as np
-from plyfile import PlyData
+
 from color_generator import generate_colors
-
-
-def read_ply_with_attributes(ply_path, seg_key='seg_id_l4'):
-    ply = PlyData.read(ply_path)
-    vertex = ply['vertex']
-
-    # 点坐标
-    points = np.stack([vertex['x'], vertex['y'], vertex['z']], axis=-1)
-    # 分割 ID（可选用 l1 / l2 / l3 / l4）
-    seg_ids = np.array(vertex[seg_key])
-    # RGB 颜色（0-255 转 0-1）
-    if 'red' in vertex and 'green' in vertex and 'blue' in vertex:
-        colors = np.stack([
-            vertex['red'] / 255.0,
-            vertex['green'] / 255.0,
-            vertex['blue'] / 255.0
-        ], axis=-1)
-    else:
-        colors = None
-
-    # 四元数旋转
-    if all(k in vertex for k in ['qw', 'qx', 'qy', 'qz']):
-        quaternions = np.stack([
-            vertex['qw'], vertex['qx'], vertex['qy'], vertex['qz']
-        ], axis=-1)
-    else:
-        quaternions = None
-    # 缩放
-    if all(k in vertex for k in ['sx', 'sy', 'sz']):
-        scales = np.stack([
-            vertex['sx'], vertex['sy'], vertex['sz']
-        ], axis=-1)
-    else:
-        scales = None
-    # 透明度
-    alpha = vertex['alpha'] if 'alpha' in vertex else None
-
-    return {
-        'points': points,
-        'seg_ids': seg_ids,
-        'colors': colors,
-        'quaternion': quaternions,
-        'scale': scales,
-        'alpha': alpha
-    }
-
+from utils.ply_parser import read_ply_with_attributes
 
 def plot_with_open3d(points, seg_ids, max_points_per_seg=2000):
     unique_ids = sorted(set(seg_ids))

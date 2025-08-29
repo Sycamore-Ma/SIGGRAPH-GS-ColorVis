@@ -1,0 +1,9 @@
+cache/
+blender/png/
+png/
+ply/
+# *.sh
+# *.png
+
+*.ply
+__pycache__/

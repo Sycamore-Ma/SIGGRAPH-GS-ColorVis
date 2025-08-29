@@ -149,6 +149,22 @@ python render_ply_matplotlib.py ply/gaussian.ply
 python render_ply_open3d.py ply/gaussian.ply
 ```
 
-## 📜 4. TO-DO: `Blender` or `Houdini` Pathway
-The `Blender` or `Houdini` pathway is currently not implemented. The goal is to create a script that can be run in the `Blender` or `Houdini` environment to visualize the generated colors and point clouds. This will allow for more advanced rendering and visualization options, potentially including animation and more complex lighting effects.
+## 📜 4. `Blender` Pathway
+The `Blender` pathway enables advanced rendering of point clouds and 3DGS spheres with realistic lighting and shading effects inside the Blender environment.  
 
+### ⚙️ Setup (Windows OS for example)
+1. Download and install **Blender** on your Windows machine.  
+2. Add the Blender executable to your system environment variables (so it can be called directly from the command line as `blender ...` through python scripts).  
+
+### 🚀 Usage
+- **Batch Rendering**  
+  Configure the paths in `blender/run_render_multi.py` and adjust the rendering parameters in `blender/render_multi.py`. Then execute:
+  ```bash
+  python ./blender/run_render_multi.py
+  ```
+- **Transparent Rendering**
+Modify the parameters in `blender/render_overlap.py` as needed, then run:
+  ```bash
+  python ./blender/render_overlap.py
+  ```
+This pathway provides high-quality rendering with advanced lighting effects, supporting both batch workflows and transparent outputs for publication-ready visualizations.

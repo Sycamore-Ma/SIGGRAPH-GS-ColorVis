@@ -1,0 +1,1 @@
+pipreqs . --force --encoding=utf-8 --savepath setup/requirements.txt
