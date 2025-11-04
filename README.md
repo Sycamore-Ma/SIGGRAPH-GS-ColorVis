@@ -151,6 +151,7 @@ python render_ply_open3d.py ply/gaussian.ply
 
 ## 📜 4. `Blender` Pathway
 The `Blender` pathway enables advanced rendering of point clouds and 3DGS spheres with realistic lighting and shading effects inside the Blender environment.  
+(Blender version: 4.1 used in testing)
 
 ### ⚙️ Setup (Windows OS for example)
 1. Download and install **Blender** on your Windows machine.  
